@@ -1,0 +1,8 @@
+USE sql10308488;
+
+CREATE TABLE IF NOT EXISTS RAcMu(
+	acuerdo_id VARCHAR(9) PRIMARY KEY,
+	nro_acuerdo VARCHAR(9),
+	fecha VARCHAR(15),
+	detalle VARCHAR(255)
+);
