@@ -3,6 +3,8 @@ USE sql10308628;
 CREATE TABLE IF NOT EXISTS RAM(
 	acuerdo_id VARCHAR(9) PRIMARY KEY,
 	nro_acuerdo VARCHAR(9),
-	fecha VARCHAR(15),
-	detalle VARCHAR(255)
+	f_dia VARCHAR(15),
+	f_mes VARCHAR(15),
+	f_año VARCHAR(15),
+	detalle VARCHAR(600)
 );

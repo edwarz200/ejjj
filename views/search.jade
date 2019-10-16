@@ -6,7 +6,7 @@ block content
         form
             div.input-group.mb-3
                 div.input-group-prepend
-                    select(name="os").dropdown.btn.btn-outline-primary.dropdown-toggle
+                    select(name="os").dropdown.btn.btn-primary.dropdown-toggle
                         option.dropdown-item.text-light(value="") Opciones de busqueda
                         optgroup.dropdown-item.text-light(value="")
                         option.dropdown-item.text-light(value="Palabra") Palabra
@@ -15,3 +15,4 @@ block content
                 input.form-control.sm-4(type='text', placeholder='Buscar', aria-label='Search')
                 div.input-group-append
                     button.btn.btn-primary.my-2.my-sm-0(type='submit') Search
+    include footer

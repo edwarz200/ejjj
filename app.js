@@ -26,5 +26,4 @@ app
     .use(morgan('dev'))
     .use(publicDir)
     .use(routes)
-
 module.exports = app

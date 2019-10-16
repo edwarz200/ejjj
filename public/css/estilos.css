@@ -18,6 +18,15 @@
     cursor: auto;
 }
 
+.txtedit,
+.txtadd {
+    min-height: 120px;
+}
+
+.lbr {
+    line-height: 3px;
+}
+
 .image {
     background: url("RAM.png");
 }

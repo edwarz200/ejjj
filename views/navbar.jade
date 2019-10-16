@@ -10,18 +10,17 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light.mb-3
       li.nav-item
         a.nav-link.text-light(href='/search') Buscar
       li.nav-item
+        a.nav-link.text-light.Ag(href='/Agregar' hidden) Agregar
+      li.nav-item
         div.input-group-prepend
-          select(name="S_E", id="S_E").dropdown.btn.btn-secondary.dropdown-toggle
+          select.dropdown.btn.btn-secondary.dropdown-toggle.selectE(name="S_E", id="S_E",)
             option.dropdown-item.text-light(value="") Opciones para eliminiar
             option.dropdown-item.text-light(value="Habilitar") Habilitar eliminar
-            option.dropdown-item.text-light(value="Deshabilitar") Deshabilitar eliminar
+            option.dropdown-item.text-light(value="Deshabilitar")
+              a(href="/") Deshabilitar eliminar
             option.dropdown-item.text-light(value="Varios") Eliminar Varios
+      input#disables.text-light(type="hidden",value="#{disables}")
+      input#op.text-light(type="hidden",value="#{op}")
 div.d-none
-  script.
-    window.onload = function() {
-        var lista = document.getElementById("S_E");
-        lista.onchange = function() {
-            window.location = "/?S_E=" + lista.value;
-            ACController.HD((lista.value))
-        }
-    }
+  //- -var uno= disables
+  //- -uno(uno)

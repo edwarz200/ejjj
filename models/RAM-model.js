@@ -5,6 +5,8 @@ var conn = require('./RAM-connection'),
 
 ACModel.getAll = (cb) => conn.query('SELECT * FROM RAM order by fecha, nro_acuerdo', cb)
 
+ACModel.getOneAC = (cb) => conn.query('SELECT acuerdo_id FROM RAM', cb)
+
 ACModel.getOne = (id, cb) => conn.query('SELECT * FROM RAM WHERE acuerdo_id = ?', id, cb)
 
 //MovieModel.insert = (data, cb) => conn.query('INSERT INTO movie SET ?', data, cb)

@@ -6,21 +6,28 @@ block content
 		include header
 		div.item
 			form.form(method="POST" action="/actualizar/#{data[0].acuerdo_id}")
-				fieldset
-					div.container.p1
-						label.item.i-b.v-top.ph3.p_25.right(for="acuerdo_id") IMDB id:
-						input.item.i-b.v-top.ph9.p_25#id(type="text", name="id", value="#{data[0].acuerdo_id}", disabled, required)
-						input#acuerdo_id(type="hidden", name="acuerdo_id", value="#{data[0].acuerdo_id}", required)
-					div.container.p1
-						label.item.i-b.v-top.ph3.p_25.right(for="nro_acuerdo") Numero de acuerdo:
-						input.item.i-b.v-top.ph9.p_25#nacuerdo(type="text", name="nro_acuerdo", required)
-					div.container.p1
-						label.item.i-b.v-top.ph3.p_25.right(for="fecha") Fecha:
-						input.item.i-b.v-top.ph9.p_25#fecha(type="date", name="fecha", required)
-					div.container.p1
-						label.item.i-b.v-top.ph3.p_25.right(for="detalle") DETALLE:
-						textarea(name="detalle", maxlength="255", required)
-					div.container.p1
-						input.item.ph4.mauto.button.edit(type="submit", value="Editar")
-						input(type="hidden", name="_method", value="PUT")
+				fieldsetdiv.input-group.mb-3
+						div.input-group-prepend
+							span#basic-addon1.input-group-text(for="acuerdo_id") Id:
+						input#acuerdo_id.form-control(type="text", name="acuerdo_id",value='#{data[0].acuerdo_id}', disabled)
+						input.item.i-b.v-top.ph9.p_25#acuerdo_id(type="hidden", value='#{data[0].acuerdo_id}' name="acuerdo_id")
+					div.input-group.mb-3
+						div.input-group-prepend
+							span#basic-addon1.input-group-text(for="nro_acuerdo") Numero de acuerdo:
+						input#nro_acuerdo.form-control(type="text", name="nro_acuerdo", value="#{data[0].nro_acuerdo}" placeholder="Numero de acuerdo" required)
+					div.input-group.mb-3
+						div.input-group-prepend
+							span#basic-addon1.input-group-text(for="fecha") Fecha:
+						input#fecha.form-control(type="number", name="f_dia", value="#{data[0].f_dia}" placeholder="dia")
+						input#fecha.form-control(type="number", name="f_mes", value="#{data[0].f_mes}" placeholder="mes")
+						input#fecha.form-control(type="number", name="f_año", value="#{data[0].f_año}" placeholder="año" required)
+					div.input-group.mb-3
+						.input-group-prepend
+							span.input-group-text(for="detalle") Detalle:
+						//- input.item.i-b.v-top.ph9.p_25#detalle(type="textarea", name="detalle", required)
+						textarea#content.txtedit.form-control.bg-transparent(name="detalle", maxlength="600", aria-label="Detalle:" required)= data[0].detalle
+				div.text-center
+					input.btn.btn-success.btn-lg.add.mr-md-3(type="submit", value="Editar")
+					input(type="hidden", name="_method", value="PUT")
+					a.btn.btn-danger.btn-lg(href="/") cancelar
 	include footer

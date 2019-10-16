@@ -10,7 +10,8 @@ block content
 					div.input-group.mb-3
 						div.input-group-prepend
 							span#basic-addon1.input-group-text(for="acuerdo_id") Id:
-						input#acuerdo_id.form-control(type="text", name="acuerdo_id", placeholder="Id" required)
+						input#acuerdo_id.form-control(type="text", name="acuerdo_id",value='#{data}', disabled)
+						input.item.i-b.v-top.ph9.p_25#acuerdo_id(type="hidden", value='#{data}' name="acuerdo_id")
 					div.input-group.mb-3
 						div.input-group-prepend
 							span#basic-addon1.input-group-text(for="nro_acuerdo") Numero de acuerdo:
@@ -18,15 +19,18 @@ block content
 					div.input-group.mb-3
 						div.input-group-prepend
 							span#basic-addon1.input-group-text(for="fecha") Fecha:
-						input#fecha.form-control(type="date", name="fecha", placeholder="Fecha" required)
+						input#fecha.form-control(type="number", name="f_dia", value="#{data[0].f_dia}" placeholder="dia")
+						input#fecha.form-control(type="number", name="f_mes", value="#{data[0].f_mes}" placeholder="mes")
+						input#fecha.form-control(type="number", name="f_año", value="#{data[0].f_año}" placeholder="año" required)
 					div.input-group.mb-3
 						.input-group-prepend
 							span.input-group-text(for="detalle") Detalle:
 						//- input.item.i-b.v-top.ph9.p_25#detalle(type="textarea", name="detalle", required)
-						textarea.form-control(name="detalle", maxlength="255", aria-label="Detalle:" required).bg-transparent
+						textarea.txtadd.form-control.bg-transparent(name="detalle", maxlength="255", aria-label="Detalle:" required)
 				div.text-center
 					input.btn.btn-success.btn-lg.add.mr-md-3(type="submit", value="Agregar")
 					a.btn.btn-danger.btn-lg(href="/") cancelar
 					//- 	input.item.i-b.v-top.ph9.p_25#image(type="text", name="image", required)
 					//- div.container.p1
-					//- 	label.item.i-b.v-top.ph3.p_25.right(for="image") Poster:			
+					//- 	label.item.i-b.v-top.ph3.p_25.right(for="image") Poster:	
+	include footer		

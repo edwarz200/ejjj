@@ -3,18 +3,9 @@
 var ACModel = require('../models/RAM-model'),
     ACController = () => {}
 
-ACController.HD = (h) => {
-    console.log(h)
-}
-
-ACController.dD = () => {
-
-}
-ACController.HV = () => {
-
-}
-
 ACController.getAll = (req, res, next) => {
+    var H_D = req.params.value
+    console.log(req.params.value)
     ACModel.getAll((err, rows) => {
         if (err) {
             let locals = {
@@ -25,12 +16,32 @@ ACController.getAll = (req, res, next) => {
 
             res.render('error', locals)
         } else {
-            let locals = {
-                title: 'Acuerdos Municipales',
-                disables: 'block',
-                data: rows
+            if (H_D == ":Habilitar") {
+                var locals = {
+                    title: 'Acuerdos Municipales',
+                    disables: 'false',
+                    data: rows
+                }
+                console.log("entro")
+            } else if (H_D == ":Deshabilitar") {
+                var locals = {
+                    title: 'Acuerdos Municipales',
+                    disables: 'true',
+                    data: rows
+                }
+            } else if (H_D == ":Varios") {
+                var locals = {
+                    title: 'Acuerdos Municipales',
+                    disables: 'false_v',
+                    data: rows
+                }
+            } else {
+                var locals = {
+                    title: 'Acuerdos Municipales',
+                    disables: 'true_defect',
+                    data: rows
+                }
             }
-
             res.render('index', locals)
         }
     })
@@ -53,7 +64,8 @@ ACController.getOne = (req, res, next) => {
         } else {
             let locals = {
                 title: 'Acuerdos Municipales',
-                data: rows
+                data: rows,
+                op: 'search'
             }
 
             res.render('edit', locals)
@@ -65,7 +77,9 @@ ACController.save = (req, res, next) => {
     let AC = {
         acuerdo_id: req.body.acuerdo_id,
         nro_acuerdo: req.body.nro_acuerdo,
-        fecha: req.body.fecha,
+        f_dia: req.body.f_dia,
+        f_mes: req.body.f_mes,
+        f_año: req.body.f_año,
         detalle: req.body.detalle
     }
 
@@ -101,7 +115,7 @@ ACController.delete = (req, res, next) => {
 
             res.render('error', locals)
         } else {
-            res.redirect('/')
+            res.redirect('/S_E:Habilitar')
         }
     })
 }
@@ -109,12 +123,36 @@ ACController.delete = (req, res, next) => {
 ACController.addForm = (req, res, next) => {
     var letras_a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     var letras_A = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    ACModel.getOneAC((err, rows) => {
+        if (err) {} else {
+            var m_id = "AC_"
+            for (var i = 0; i < 3; i++) {
+                m_id += letras_a[Math.round(Math.random() * 3)] + Math.round(Math.random() * 9) + letras_A[Math.round(Math.random() * 26)]
+            }
 
-    res.render('add', { title: 'Agregar Acuerdo Municipal' })
+            for (var movie = 0; movie < rows.length; movie++) {
+                while (m_id == rows[movie].movie_id) {
+                    for (var i = 0; i < 3; i++) {
+                        m_id += letras_a[Math.round(Math.random() * 26)] + Math.round(Math.random() * 26) + letras_A[Math.round(Math.random() * 26)]
+                    }
+                }
+            }
+            let locals = {
+                title: 'Agregar Acuerdo Municipal',
+                data: m_id,
+                op: 'search_ag'
+            }
+            res.render('add', locals)
+        }
+    })
 }
 
 ACController.searchForm = (req, res, next) => {
-    res.render('search', { title: 'Buscar Acuerdo Municipal' })
+    let locals = {
+        title: 'Buscar Acuerdo Municipal',
+        op: 'search'
+    }
+    res.render('search', locals)
 }
 
 ACController.error404 = (req, res, next) => {
