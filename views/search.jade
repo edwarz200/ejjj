@@ -1,10 +1,17 @@
-form.form-inline.my-2.my-lg-0
-    div
-        select(name="os").dropdown.btn.btn-secondary.dropdown-toggle
-            option.dropdown-item.text-light(value="") Opciones de busqueda
-            optgroup.dropdown-item.text-light(value="")
-            option.dropdown-item.text-light(value="Palabra") Palabra
-            option.dropdown-item.text-light(value="Numero de acuerdo") Numero de acuerdo
-            option.dropdown-item.text-light(value="Fecha del acuerdo") Fecha del acuerdo
-    input.form-control.mr-sm-4(type='search', placeholder='Buscar', aria-label='Search')
-    button.btn.btn-light.my-2.my-sm-0(type='submit') Search
+extends layout
+block content
+    include navbar
+    section.container
+        include header
+        form
+            div.input-group.mb-3
+                div.input-group-prepend
+                    select(name="os").dropdown.btn.btn-outline-primary.dropdown-toggle
+                        option.dropdown-item.text-light(value="") Opciones de busqueda
+                        optgroup.dropdown-item.text-light(value="")
+                        option.dropdown-item.text-light(value="Palabra") Palabra
+                        option.dropdown-item.text-light(value="Numero de acuerdo") Numero de acuerdo
+                        option.dropdown-item.text-light(value="Fecha del acuerdo") Fecha del acuerdo
+                input.form-control.sm-4(type='text', placeholder='Buscar', aria-label='Search')
+                div.input-group-append
+                    button.btn.btn-primary.my-2.my-sm-0(type='submit') Search

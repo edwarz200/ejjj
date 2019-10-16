@@ -1,16 +1,27 @@
-nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light.mb-3
   a.navbar-brand(href='#') RAM
-  div.image
   button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
     span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      li.nav-item.active
-        a.nav-link(href='/')
+      li.nav-item
+        a.nav-link.text-light(href='/')
           | Inicio 
-          span.sr-only (current)
       li.nav-item
-        a.nav-link(href='#') Link
-
+        a.nav-link.text-light(href='/search') Buscar
       li.nav-item
-        a.nav-link.disabled(href='#', tabindex='-1', aria-disabled='true') Disabled
+        div.input-group-prepend
+          select(name="S_E", id="S_E").dropdown.btn.btn-secondary.dropdown-toggle
+            option.dropdown-item.text-light(value="") Opciones para eliminiar
+            option.dropdown-item.text-light(value="Habilitar") Habilitar eliminar
+            option.dropdown-item.text-light(value="Deshabilitar") Deshabilitar eliminar
+            option.dropdown-item.text-light(value="Varios") Eliminar Varios
+div.d-none
+  script.
+    window.onload = function() {
+        var lista = document.getElementById("S_E");
+        lista.onchange = function() {
+            window.location = "/?S_E=" + lista.value;
+            ACController.HD((lista.value))
+        }
+    }

@@ -1,7 +1,18 @@
 'use strict'
 
-var ACModel = require('../models/RAcMu-model'),
+var ACModel = require('../models/RAM-model'),
     ACController = () => {}
+
+ACController.HD = (h) => {
+    console.log(h)
+}
+
+ACController.dD = () => {
+
+}
+ACController.HV = () => {
+
+}
 
 ACController.getAll = (req, res, next) => {
     ACModel.getAll((err, rows) => {
@@ -16,6 +27,7 @@ ACController.getAll = (req, res, next) => {
         } else {
             let locals = {
                 title: 'Acuerdos Municipales',
+                disables: 'block',
                 data: rows
             }
 
@@ -98,7 +110,11 @@ ACController.addForm = (req, res, next) => {
     var letras_a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     var letras_A = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-    res.render('add', { title: 'Agregar Película' })
+    res.render('add', { title: 'Agregar Acuerdo Municipal' })
+}
+
+ACController.searchForm = (req, res, next) => {
+    res.render('search', { title: 'Buscar Acuerdo Municipal' })
 }
 
 ACController.error404 = (req, res, next) => {

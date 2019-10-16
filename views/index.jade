@@ -14,25 +14,39 @@ block content
 						th.col-4(scope="col") Detalle
 						th.col-2(scope="col", colspan="2")
 							form(method="GET" action="/agregar")
-								input.button.add(type="submit", value="Agregar")
+								div.input-group
+									select#inputGroupSelect01.custom-select(name="nums", title="Escoger el numero de acuerdos a agregar a la vez")
+										option(selected) Escoger...
+										option(value="1") 1
+										option(value="2") 2
+										option(value="3") 3
+										option(value="4") 4
+										option(value="5") 5
+									div.input-group-append
+										input.add.btn.btn-outline.btn-success(type="submit", value="Agregar", title="Agregar acuerdos")
+					-var cont=1
 					-each ac in data
 						tr.row
 							th.col-2(scope="row") #{ac.acuerdo_id}
 							td.col-2 #{ac.nro_acuerdo}
 							td.col-2 #{ac.fecha}
 							td.col-4
-								article.w-100.h-100.textarea(disabled)
+								article.w-100.h-100.textarea(disabled).bg-transparent
 									p #{ac.detalle}
 							td.col-2
 								form(method="GET" action="/editar/#{ac.acuerdo_id}")
-									input.button.edit(type="submit", value="Editar")
+									input.button.btn.btn-info.btn-block(type="submit", value="Editar",  title="Editar el acuerdo")
 								form(method="POST" action="/eliminar/#{ac.acuerdo_id}")
-									input.button.delete(type="button", onclick="eliminar(this)").btn.btn-danger.far.fa-trash-alt
+									div.D(style="display: #{disables}")
+									input.button.btn.btn-danger.btn-block(type="button", onclick="eliminar(this)", value="Eliminar", title="Eliminar el acuerdo")
 									input(type="hidden", name="_method", value="DELETE")
+						-console.log(cont)
+						-cont++
+						
 				script.
 					function eliminar(input)
 					{
-						var deleteOk = confirm('¿Estás seguro de eliminar la película?')
+						var deleteOk = confirm('¿Estás seguro de eliminar este acuerdo?')
 						return (deleteOk) ? input.parentNode.submit() : false
 					}
 			-else
@@ -44,7 +58,15 @@ block content
 							th(scope="col") Detalle
 							th(scope="col", colspan="2")
 								form(method="GET" action="/agregar")
-									input.button.add(type="submit", value="Agregar")
+									div.input-group
+										select#inputGroupSelect01.custom-select.btn.btn-secondary.dropdown-toggle(name="nums")
+											option(value="1") 1
+											option(value="2") 2
+											option(value="3") 3
+											option(value="4") 4
+											option(value="5") 5
+									div.input-group-append
+										input.button.add.btn.btn-outline-succes(type="submit", value="Agregar")
 							tr
 								th.no_selection.text-black-50(scope="row") Sin informacion
 								td.no_selection.text-black-50 Sin informacion
