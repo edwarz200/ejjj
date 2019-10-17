@@ -13,6 +13,7 @@ ACModel.getOne = (id, cb) => conn.query('SELECT * FROM RAM WHERE acuerdo_id = ?'
 
 //MovieModel.update = (data, cb) => conn.query('UPDATE movie SET ? WHERE movie_id = ?', [data, data.movie_id], cb)
 
+
 ACModel.save = (data, cb) => {
     conn.query('SELECT * FROM RAM WHERE acuerdo_id = ?', data.acuerdo_id, (err, rows) => {
         console.log(`Número de registros: ${rows.length}`)

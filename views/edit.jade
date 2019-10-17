@@ -18,9 +18,7 @@ block content
 					div.input-group.mb-3
 						div.input-group-prepend
 							span#basic-addon1.input-group-text(for="fecha") Fecha:
-						input#fecha.form-control(type="number", name="f_dia", value="#{data[0].f_dia}" placeholder="dia")
-						input#fecha.form-control(type="number", name="f_mes", value="#{data[0].f_mes}" placeholder="mes")
-						input#fecha.form-control(type="number", name="f_año", value="#{data[0].f_año}" placeholder="año" required)
+						input#fecha.form-control(type="date", name="fecha", value="#{data[0].fecha}" placeholder="fecha")
 					div.input-group.mb-3
 						.input-group-prepend
 							span.input-group-text(for="detalle") Detalle:

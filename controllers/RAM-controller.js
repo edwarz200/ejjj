@@ -23,12 +23,6 @@ ACController.getAll = (req, res, next) => {
                     data: rows
                 }
                 console.log("entro")
-            } else if (H_D == ":Deshabilitar") {
-                var locals = {
-                    title: 'Acuerdos Municipales',
-                    disables: 'true',
-                    data: rows
-                }
             } else if (H_D == ":Varios") {
                 var locals = {
                     title: 'Acuerdos Municipales',
@@ -67,7 +61,6 @@ ACController.getOne = (req, res, next) => {
                 data: rows,
                 op: 'search'
             }
-
             res.render('edit', locals)
         }
     })
@@ -77,9 +70,7 @@ ACController.save = (req, res, next) => {
     let AC = {
         acuerdo_id: req.body.acuerdo_id,
         nro_acuerdo: req.body.nro_acuerdo,
-        f_dia: req.body.f_dia,
-        f_mes: req.body.f_mes,
-        f_año: req.body.f_año,
+        fecha: req.body.fecha,
         detalle: req.body.detalle
     }
 
@@ -121,28 +112,55 @@ ACController.delete = (req, res, next) => {
 }
 
 ACController.addForm = (req, res, next) => {
-    var letras_a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    var letras_A = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     ACModel.getOneAC((err, rows) => {
+        var letras_a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+            letras_A = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+            cant = req.params.cant,
+            c = 0,
+            m_idarray = []
         if (err) {} else {
-            var m_id = "AC_"
-            for (var i = 0; i < 3; i++) {
-                m_id += letras_a[Math.round(Math.random() * 3)] + Math.round(Math.random() * 9) + letras_A[Math.round(Math.random() * 26)]
-            }
-
-            for (var movie = 0; movie < rows.length; movie++) {
-                while (m_id == rows[movie].movie_id) {
-                    for (var i = 0; i < 3; i++) {
-                        m_id += letras_a[Math.round(Math.random() * 26)] + Math.round(Math.random() * 26) + letras_A[Math.round(Math.random() * 26)]
-                    }
+            if (err) {
+                let locals = {
+                    title: 'Error al consultar la base de datos',
+                    description: 'Error de Sintaxis SQL',
+                    error: err
                 }
+                res.render('error', locals)
+            } else {
+                if (cant == ":nums=1") {
+                    c = 0
+                } else if (cant == ":nums=2") {
+                    c = 1
+                } else if (cant == ":nums=3") {
+                    c = 2
+                } else if (cant == ":nums=4") {
+                    c = 3
+                } else if (cant == ":nums=5") {
+                    c = 4
+                }
+                for (var i = 0; i <= c; i++) {
+                    var m_id = "AC_"
+                    for (var j = 0; j < 3; j++) {
+                        m_id += letras_a[Math.round(Math.random() * 3)] + Math.round(Math.random() * 9) + letras_A[Math.round(Math.random() * 26)]
+                    }
+                    for (var ram = 0; ram < rows.length; ram++) {
+                        while (m_id == rows[ram].acuerdo_id) {
+                            for (var k = 0; k < 3; k++) {
+                                m_id += letras_a[Math.round(Math.random() * 26)] + Math.round(Math.random() * 26) + letras_A[Math.round(Math.random() * 26)]
+                            }
+                        }
+                    }
+                    m_idarray[i] = m_id
+                    console.log(m_idarray)
+                }
+                var locals = {
+                    title: 'Agregar Acuerdo Municipal',
+                    data: m_idarray,
+                    nums: c,
+                    op: 'search_ag'
+                }
+                res.render('add', locals)
             }
-            let locals = {
-                title: 'Agregar Acuerdo Municipal',
-                data: m_id,
-                op: 'search_ag'
-            }
-            res.render('add', locals)
         }
     })
 }

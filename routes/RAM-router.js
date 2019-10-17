@@ -6,7 +6,7 @@ var ACController = require('../controllers/RAM-controller'),
 router
     .get('/', ACController.getAll)
     .get('/S_E:value', ACController.getAll)
-    .get('/agregar', ACController.addForm)
+    .get('/agregar:cant', ACController.addForm)
     .get('/search', ACController.searchForm)
     //.post('/', ACController.insert)
     .post('/', ACController.save)
