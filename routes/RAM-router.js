@@ -5,11 +5,12 @@ var ACController = require('../controllers/RAM-controller'),
     router = express.Router()
 router
     .get('/', ACController.getAll)
+    .get('/value:CoR', ACController.close_reset)
     .get('/S_E:value', ACController.getAll)
     .get('/agregar:cant', ACController.addForm)
     .get('/search', ACController.searchForm)
     //.post('/', ACController.insert)
-    .post('/', ACController.save)
+    .post('/agregar:save', ACController.save)
     .get('/editar/:acuerdo_id', ACController.getOne)
     //.post('/actualizar/:acuerdo_id', ACController.update)
     //.put('/actualizar/:acuerdo_id', ACController.update)

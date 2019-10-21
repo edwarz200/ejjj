@@ -10,17 +10,17 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light.mb-3
       li.nav-item
         a.nav-link.text-light(href='/search') Buscar
       li.nav-item
-        a.nav-link.text-light.Ag(href='/Agregar' hidden) Agregar
+        a.nav-link.text-light.Ag(href='/agregar:nums=1' hidden) Agregar
       li.nav-item
         div.input-group-prepend
           select.dropdown.btn.btn-secondary.dropdown-toggle.selectE(title="Opciones para eliminar", name="S_E", id="S_E",)
-            //- option.dropdown-item.text-light(value="") Opciones para eliminiar
             option.dropdown-item.text-light(value="Deshabilitar")
               a(href="/") Deshabilitado para eliminar
             option.dropdown-item.text-light(value="Habilitar") Habilitar eliminar
             option.dropdown-item.text-light(value="Varios") Eliminar Varios
-      input#disables.text-light(type="hidden",value="#{disables}")
-      input#op.text-light(type="hidden",value="#{op}")
+form(method="get" action="/value:Close")      
+      input#nums(type="submit", value="cerrar")
+      input#disables(type="hidden",value="#{disables}")
+      input#op(type="hidden",value="#{op}")
+      input#nums(type="hidden", value="#{nums}")
 div.d-none
-  //- -var uno= disables
-  //- -uno(uno)

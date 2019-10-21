@@ -17,30 +17,45 @@ ACController.getAll = (req, res, next) => {
             res.render('error', locals)
         } else {
             if (H_D == ":Habilitar") {
-                var locals = {
-                    title: 'Acuerdos Municipales',
-                    disables: 'false',
-                    data: rows
-                }
-                console.log("entro")
+                var c = 'false'
             } else if (H_D == ":Varios") {
-                var locals = {
-                    title: 'Acuerdos Municipales',
-                    disables: 'false_v',
-                    data: rows
-                }
+                var c = 'false_v'
             } else {
-                var locals = {
-                    title: 'Acuerdos Municipales',
-                    disables: 'true_defect',
-                    data: rows
-                }
+                var c = 'true_defect'
+            }
+            var locals = {
+                title: 'Acuerdos Municipales',
+                disables: c,
+                data: rows,
             }
             res.render('index', locals)
         }
     })
 }
+ACController.close_reset = (req,res,next)=>{
+    let closeORreset = req.params.CoR,
+        id
+    if (closeORreset == ":Close") {
+        id="Close"
+    }else if (closeORreset == ":Reset") {
+        id="Reset"
+    }
+    console.log(closeORreset)
+     ACModel.close_reset(id,(err, stdout, stderr) => {
+         if (err) {
+            let locals = {
+                title: 'Error al cerrar',
+                description: 'Error de archivo',
+                error: err
+            }
 
+            res.render('error', locals)
+             
+         }else{
+             console.log(stdout)
+         }
+     })
+}
 ACController.getOne = (req, res, next) => {
     let acuerdo_id = req.params.acuerdo_id
     console.log(acuerdo_id)
@@ -77,6 +92,7 @@ ACController.save = (req, res, next) => {
     console.log(AC)
 
     ACModel.save(AC, (err) => {
+        let r = req.params.save
         if (err) {
             let locals = {
                 title: `Error al salvar el registro con el id: ${AC.acuerdo_id}`,
@@ -86,7 +102,8 @@ ACController.save = (req, res, next) => {
 
             res.render('error', locals)
         } else {
-            res.redirect('/')
+            console.log(r)
+            // res.redirect('/')
         }
     })
 }

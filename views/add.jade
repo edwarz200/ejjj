@@ -1,59 +1,40 @@
 extends layout
 
 block content
-	include navbar
 	section.container
 		include header
 		div.container.center
-			-for (var i = 0; i < nums; ++i){
-				form.form(method="POST")
+			div.input-group.mb-3
+				div.input-group-prepend
+					span#basic-addon1.input-group-text.bg-primary.text-white.border-primary Numero de acuerdos a agregar
+				include add_cant
+			-for (var i = 0; i <= nums; ++i){
+				form.form(method="POST" action="/agregar:save#{i}")
 					fieldset
 						div.input-group.mb-3
 							div.input-group-prepend
 								span#basic-addon1.input-group-text(for="acuerdo_id") Id:
-							input#acuerdo_id.form-control(type="text", name="acuerdo_id",value='#{data[i]}', disabled)
-							input.item.i-b.v-top.ph9.p_25#acuerdo_id(type="hidden", value='#{data[i]}' name="acuerdo_id")
+							input.form-control(id="acuerdo_id#{i}" type="text", name="acuerdo_id",value='#{data[i]}', disabled)
+							input.item.i-b.v-top.ph9.p_25(id="acuerdo_id#{i}", type="hidden", value='#{data[i]}' name="acuerdo_id")
 						div.input-group.mb-3
 							div.input-group-prepend
 								span#basic-addon1.input-group-text(for="nro_acuerdo") Numero de acuerdo:
-							input#nro_acuerdo.form-control(type="text", name="nro_acuerdo", placeholder="Numero de acuerdo" required)
+							input.form-control(id="nro_acuerdo#{i}" type="text", name="nro_acuerdo", placeholder="Numero de acuerdo" required)
 						div.input-group.mb-3
 							div.input-group-prepend
 								span#basic-addon1.input-group-text(for="fecha") Fecha:
-							input#fecha.form-control(type="date", name="fecha", placeholder="dia")
+							input.form-control(id="fecha#{i}" type="date", name="fecha", placeholder="dia")
 						div.input-group.mb-3
 							.input-group-prepend
 								span.input-group-text(for="detalle") Detalle:
 							//- input.item.i-b.v-top.ph9.p_25#detalle(type="textarea", name="detalle", required)
-							textarea.txtadd.form-control.bg-transparent(name="detalle", maxlength="255", aria-label="Detalle:" required)
-					div.text-center
-						input.btn.btn-success.btn-lg.add.mr-md-3(type="submit", value="Agregar")
-						a.btn.btn-danger.btn-lg(href="/") cancelar
+							textarea.txtadd.form-control.bg-transparent(id="detalle#{i}", name="detalle", maxlength="255", aria-label="Detalle:" required)
+						div.text-center.mb-3
+							span#spansucces(hidden)= dataenv
+							input.btn.btn-success.btn-lg.add.mr-md-3( hidden class="submit#{i}" type="submit", value="Agregar#{i}")
 			-}
-			form.form(method="POST" action="/")
-				fieldset
-					div.input-group.mb-3
-						div.input-group-prepend
-							span#basic-addon1.input-group-text(for="acuerdo_id") Id:
-						input#acuerdo_id.form-control(type="text", name="acuerdo_id",value='#{data[data.length-1]}', disabled)
-						input.item.i-b.v-top.ph9.p_25#acuerdo_id(type="hidden", value='#{data[data.length-1]}' name="acuerdo_id")
-					div.input-group.mb-3
-						div.input-group-prepend
-							span#basic-addon1.input-group-text(for="nro_acuerdo") Numero de acuerdo:
-						input#nro_acuerdo.form-control(type="text", name="nro_acuerdo", placeholder="Numero de acuerdo" required)
-					div.input-group.mb-3
-						div.input-group-prepend
-							span#basic-addon1.input-group-text(for="fecha") Fecha:
-						input#fecha.form-control(type="date", name="fecha", placeholder="dia")
-					div.input-group.mb-3
-						.input-group-prepend
-							span.input-group-text(for="detalle") Detalle:
-						//- input.item.i-b.v-top.ph9.p_25#detalle(type="textarea", name="detalle", required)
-						textarea.txtadd.form-control.bg-transparent(name="detalle", maxlength="255", aria-label="Detalle:" required)
-				div.text-center
-					input.btn.btn-success.btn-lg.add.mr-md-3(type="submit", value="Agregar")
-					a.btn.btn-danger.btn-lg(href="/") cancelar
-						//- 	input.item.i-b.v-top.ph9.p_25#image(type="text", name="image", required)
-						//- div.container.p1
-						//- 	label.item.i-b.v-top.ph3.p_25.right(for="image") Poster:	
+						div.text-center.mb-3
+							input.btn.btn-success.btn-lg.add.mr-md-3(type="button", value="Agregar" onclick="onsub(#{nums})")
+							a.btn.btn-danger.btn-lg(id="a#{nums}" href="/") cancelar
+							//- a.btn.btn-danger.btn-lg( href="/") cancelar
 	include footer		

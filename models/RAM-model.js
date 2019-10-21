@@ -1,7 +1,10 @@
 'use strict'
 
 var conn = require('./RAM-connection'),
+    exec = require('./conexec'),
     ACModel = () => {}
+
+ACModel.close_reset = (id, cb)=> exec.conexec(id,cb)
 
 ACModel.getAll = (cb) => conn.query('SELECT * FROM RAM order by fecha, nro_acuerdo', cb)
 
