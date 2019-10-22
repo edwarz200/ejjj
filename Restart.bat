@@ -1,2 +1,3 @@
 @echo off
-forever restartall
+call App-Restart.bat
+exit

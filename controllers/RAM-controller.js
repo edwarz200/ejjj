@@ -32,30 +32,20 @@ ACController.getAll = (req, res, next) => {
         }
     })
 }
-ACController.close_reset = (req,res,next)=>{
+ACController.close_reset = (req, res, next) => {
     let closeORreset = req.params.CoR,
         id
-    if (closeORreset == ":Close") {
-        id="Close"
-    }else if (closeORreset == ":Reset") {
-        id="Reset"
-    }
-    console.log(closeORreset)
-     ACModel.close_reset(id,(err, stdout, stderr) => {
-         if (err) {
-            let locals = {
-                title: 'Error al cerrar',
-                description: 'Error de archivo',
-                error: err
-            }
 
-            res.render('error', locals)
-             
-         }else{
-             console.log(stdout)
-         }
-     })
+    if (closeORreset == ":Close") {
+        id = "Close"
+    } else if (closeORreset == ":Restart") {
+        id = "Restart"
+    }
+    ACModel.close_reset(id)
+    console.log(closeORreset)
+    res.redirect('/')
 }
+
 ACController.getOne = (req, res, next) => {
     let acuerdo_id = req.params.acuerdo_id
     console.log(acuerdo_id)
@@ -103,7 +93,7 @@ ACController.save = (req, res, next) => {
             res.render('error', locals)
         } else {
             console.log(r)
-            // res.redirect('/')
+            res.redirect('/')
         }
     })
 }

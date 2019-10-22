@@ -14,13 +14,14 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light.mb-3
       li.nav-item
         div.input-group-prepend
           select.dropdown.btn.btn-secondary.dropdown-toggle.selectE(title="Opciones para eliminar", name="S_E", id="S_E",)
-            option.dropdown-item.text-light(value="Deshabilitar")
-              a(href="/") Deshabilitado para eliminar
+            option.dropdown-item.text-light(value="Deshabilitar") Deshabilitado para eliminar
             option.dropdown-item.text-light(value="Habilitar") Habilitar eliminar
             option.dropdown-item.text-light(value="Varios") Eliminar Varios
-form(method="get" action="/value:Close")      
-      input#nums(type="submit", value="cerrar")
       input#disables(type="hidden",value="#{disables}")
       input#op(type="hidden",value="#{op}")
       input#nums(type="hidden", value="#{nums}")
+    select.dropdown.btn.btn-secondary.dropdown-toggle.float-left(title="Servidor local", name="C_R", id="C_R",)
+          option.dropdown-item.text-light(value="") Opciones del servidor
+          option.dropdown-item.text-light(value="Close") Cerrar servidor
+          option.dropdown-item.text-light(value="Restart") Reiniciar Servidor
 div.d-none

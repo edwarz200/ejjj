@@ -1,9 +1,9 @@
 {
     "mysql": {
-        "host": "sql10.freesqldatabase.com",
+        "host": "localhost",
         "port": 3306,
-        "user": "sql10308628",
-        "pass": "LGA1vlpXYV",
-        "db": "sql10308628"
+        "user": "root",
+        "pass": "",
+        "db": "RAM"
     }
 }

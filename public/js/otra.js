@@ -1,27 +1,36 @@
 window.onload = () => {
-    var lista = document.getElementById("S_E")
+    var lista = document.getElementById("S_E"),
+        lista2 = document.getElementById("C_R")
     lista.onchange = () => {
-        if (lista.value == "Deshabilitar")
-            location.href = "/"
-        else
-            window.location = "/S_E:" + lista.value;
+        alert(lista.value)
+        redirect("S_E", lista.value)
+
     }
+    lista2.onchange = () => {
+        redirect("C_R", lista2.value)
+    }
+}
+
+function redirect(l, value) {
+    if (value == "Deshabilitar")
+        location.href = "/"
+    else
+        window.location = "/" + l + ":" + value;
 }
 
 function on() {
     var listaAdd = document.getElementById("inputGroupSelect01")
-    window.location = "/agregar:nums=" + listaAdd.value;
+    location.href = "/agregar:nums=" + listaAdd.value;
 }
 
 function onsub(cant) {
-    
+
     var i = 0
-    while( i <= cant) {
-    }
+    while (i <= cant) {}
 }
 
-function hilos(cant){
-    $('.submit'+i).click()
+function hilos(cant) {
+    $('.submit' + i).click()
     i++
 }
 
@@ -42,7 +51,7 @@ function myfun(h_d, h, e) {
         select = 2
     }
     document.querySelector(".selectE").options.item(select).setAttribute('selected', false)
-    
+
     if (h == "search") {
         document.querySelector(".selectE").setAttribute('hidden', false)
         document.querySelector(".Ag").removeAttribute('hidden')
@@ -52,6 +61,6 @@ function myfun(h_d, h, e) {
         document.querySelector(".selectE").removeAttribute('hidden')
         document.querySelector(".Ag").setAttribute('hidden', false)
     }
-     if(inputGroupSelect01 != null)
+    if (inputGroupSelect01 != null)
         inputGroupSelect01.options.item(e).setAttribute('selected', false)
 }

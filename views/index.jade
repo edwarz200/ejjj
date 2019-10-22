@@ -48,17 +48,8 @@ block content
 							th(scope="col") Fecha
 							th(scope="col") Detalle
 							th(scope="col", colspan="2")
-								form(method="GET" action="/agregar")
-									div.input-group
-										select#inputGroupSelect01.custom-select(name="nums", title="Escoger el numero de acuerdos a agregar a la vez")
-											option(value="") Escoger...
-											option(value="1") 1
-											option(value="2") 2
-											option(value="3") 3
-											option(value="4") 4
-											option(value="5") 5
-										div.input-group-append
-											input.add.btn.btn-outline.btn-success(type="submit", value="Agregar", title="Agregar acuerdos")
+								div.input-group
+									include add_cant
 							tr
 								th.no_selection.text-black-50(scope="row") Sin informacion
 								td.no_selection.text-black-50 Sin informacion

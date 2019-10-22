@@ -9,7 +9,8 @@ block content
 					span#basic-addon1.input-group-text.bg-primary.text-white.border-primary Numero de acuerdos a agregar
 				include add_cant
 			-for (var i = 0; i <= nums; ++i){
-				form.form(method="POST" action="/agregar:save#{i}")
+				form.form(method="POST" action="/agregar")
+					//- form.form(method="POST" action="/agregar:save#{i}")
 					fieldset
 						div.input-group.mb-3
 							div.input-group-prepend
@@ -32,9 +33,10 @@ block content
 						div.text-center.mb-3
 							span#spansucces(hidden)= dataenv
 							input.btn.btn-success.btn-lg.add.mr-md-3( hidden class="submit#{i}" type="submit", value="Agregar#{i}")
-			-}
 						div.text-center.mb-3
-							input.btn.btn-success.btn-lg.add.mr-md-3(type="button", value="Agregar" onclick="onsub(#{nums})")
+							input.btn.btn-success.btn-lg.add.mr-md-3(type="submit", value="Agregar")
+							//- input.btn.btn-success.btn-lg.add.mr-md-3(type="button", value="Agregar" onclick="onsub(#{nums})")
 							a.btn.btn-danger.btn-lg(id="a#{nums}" href="/") cancelar
 							//- a.btn.btn-danger.btn-lg( href="/") cancelar
+			-}
 	include footer		

@@ -1,2 +1,3 @@
 @echo off
-forever stopall
+call App-Close.bat
+exit
