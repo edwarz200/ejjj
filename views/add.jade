@@ -9,7 +9,7 @@ block content
 					span#basic-addon1.input-group-text.bg-primary.text-white.border-primary Numero de acuerdos a agregar
 				include add_cant
 			-for (var i = 0; i <= nums; ++i){
-				form.form(method="POST" action="/agregar")
+				form.form(method="POST" action="/save")
 					//- form.form(method="POST" action="/agregar:save#{i}")
 					fieldset
 						div.input-group.mb-3

@@ -1,6 +1,7 @@
 'use strict'
 
 var express = require('express'),
+    expresshdb = require('express-handlebars'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
@@ -11,7 +12,6 @@ var express = require('express'),
     viewDir = `${__dirname}/views`,
     port = (process.env.PORT || 2000),
     app = express()
-
 app
     .set('views', viewDir)
     .set('view engine', 'jade')

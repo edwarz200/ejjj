@@ -4,7 +4,7 @@ block content
 	section.c-95
 		include header
 		article.item
-			-if(data.length)
+			-if(data)
 				table.table.table-striped
 					tr.row
 						th.col-1(scope="col") Id
@@ -17,6 +17,7 @@ block content
 					
 					-var cont=1
 					-each ac in data
+						-console.log()
 						tr.row
 							th.col-1.text-truncate(scope="row") #{ac.acuerdo_id}
 							td.col-2 #{ac.nro_acuerdo}
@@ -29,7 +30,8 @@ block content
 									input.button.btn.btn-info.btn-block(type="submit", value="Editar",  title="Editar el acuerdo")
 								form(method="POST" action="/eliminar/#{ac.acuerdo_id}")
 									//- div.D(style="display: #{disables}")
-									input.disable.button.btn.btn-danger.btn-block(disabled, type="button", onclick="eliminar(this)", value="Eliminar", title="Eliminar el acuerdo")
+									a.btn.btn-danger.btn-block(href="/delete/") Eliminar
+									//- input.disable.button.btn.btn-danger.btn-block(disabled, type="button", onclick="eliminar(this)", value="Eliminar", title="Eliminar el acuerdo")
 									input(type="hidden", name="_method", value="DELETE")
 						-console.log(cont)
 						-cont++
