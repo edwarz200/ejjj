@@ -11,7 +11,7 @@ router
     // .get('/search', ACController.searchForm)
     // //.post('/', ACController.insert)
     .post('/save', ACController.push)
-    // .get('/editar/:acuerdo_id', ACController.getOne)
+    .get('/editar/:acuerdo_id', ACController.getOne)
     // //.post('/actualizar/:acuerdo_id', ACController.update)
     // //.put('/actualizar/:acuerdo_id', ACController.update)
     // .put('/actualizar/:acuerdo_id', ACController.save)

@@ -18,7 +18,6 @@ app
     .set('port', port)
 
 .use(favicon(faviconURL))
-    // parse application/json
     .use(bodyParser.json())
     // parse application/x-www-form-urlencoded
     .use(bodyParser.urlencoded({ extended: false }))

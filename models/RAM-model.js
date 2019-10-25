@@ -8,16 +8,20 @@ ACModel.close_reset = (id, cb) => Cexec.conexec(id, cb)
 
 ACModel.getAll = (cb) => conn.ref('RAM').once('value', cb)
 
-ACModel.getOneAC = (cb) => {}
+ACModel.getid = (cb) => conn.ref('RAM').on('child_added', cb)
 
-ACModel.getOne = (id, cb) => conn.query('SELECT * FROM RAM WHERE acuerdo_id = ?', id, cb)
+// ACModel.getid2 = (id, cb) => conn.ref('RAM/'+id).on('child_added', cb)
+
+ACModel.getOne = (id, cb) => conn.ref('RAM/'+id).once('value', cb)
 
 //MovieModel.insert = (data, cb) => conn.query('INSERT INTO movie SET ?', data, cb)
 
 //MovieModel.update = (data, cb) => conn.query('UPDATE movie SET ? WHERE movie_id = ?', [data, data.movie_id], cb)
 
-ACModel.push = (data, cb) => {
-    conn.ref('RAM').push(data, cb)
+ACModel.push = (id,data,cb) => {
+    // conn.ref('RAM').push(data, cb)
+    conn.ref("RAM").child(id).set(data,cb);
+
         // conn.ref('RAM').once('value', (snapshot) => {
         //         var data = snapshot.val()
         //     })

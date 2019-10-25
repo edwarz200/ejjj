@@ -4,15 +4,15 @@ var ACModel = require('../models/RAM-model'),
     ACController = () => {}
 
 ACController.push = (req, res, next) => {
-    let AC = {
-        acuerdo_id: req.body.acuerdo_id,
-        nro_acuerdo: req.body.nro_acuerdo,
-        fecha: req.body.fecha,
-        detalle: req.body.detalle
-    }
+    let id = req.body.acuerdo_id,
+    AC = {
+            nro_acuerdo: req.body.nro_acuerdo,
+            fecha: req.body.fecha,
+            detalle: req.body.detalle
+        }
     console.log(AC)
 
-    ACModel.push(AC, (err) => {
+    ACModel.push(id,AC, (err) => {
         if (err) {
             let locals = {
                 title: `Error al salvar el registro con el id: ${AC.acuerdo_id}`,
@@ -29,37 +29,29 @@ ACController.push = (req, res, next) => {
 
 
 ACController.getAll = (req, res, next) => {
-    var H_D = req.params.value
-    console.log(req.params.value)
+    let H_D = req.params.value,
+        id_AC = "no paso", 
+        c
+    ACModel.getid((snapshot,prevChildKey)=>{id_AC = prevChildKey})
     ACModel.getAll((snapshot) => {
-        var rows = snapshot.val()
-        console.log(rows)
-        console.log(snapshot.child().first)
-            // if (err) {
-            //     let locals = {
-            //         title: 'Error al consultar la base de datos',
-            //         description: 'Error de Sintaxis SQL',
-            //         error: err
-            //     }
-
-        //     res.render('error', locals)
-        // } else {
+        let rows = snapshot.val()
         if (H_D == ":Habilitar") {
-            var c = 'false'
+            c = 'false'
         } else if (H_D == ":Varios") {
-            var c = 'false_v'
+            c = 'false_v'
         } else {
-            var c = 'true_defect'
+            c = 'true_defect'
         }
-        var locals = {
+        let locals = {
             title: 'Acuerdos Municipales',
             disables: c,
             data: rows,
+            id: id_AC
         }
         res.render('index', locals)
-            // }
     })
 }
+
 ACController.close_reset = (req, res, next) => {
     let closeORreset = req.params.CoR,
         id
@@ -69,35 +61,29 @@ ACController.close_reset = (req, res, next) => {
     } else if (closeORreset == ":Restart") {
         id = "Restart"
     }
-    ACModel.close_reset(id)
-    console.log(closeORreset)
+    ACModel.close_reset(id,(err, stdout, stderr) => {
     res.redirect('/')
+        return (err) ? console.log(`Archivo no encontrado ${err.stack}`) : console.log(`Archivo encontrado: stdout ${stdout}, stderr ${stderr} `) 
+    })
+    console.log(closeORreset)
 }
 
-// ACController.getOne = (req, res, next) => {
-//     let acuerdo_id = req.params.acuerdo_id
-//     console.log(acuerdo_id)
+ACController.getOne = (req, res, next) => {
+    let acuerdo_id = req.params.acuerdo_id
+    console.log(acuerdo_id)
 
-//     ACModel.getOne(acuerdo_id, (err, rows) => {
-//         console.log(err, '---', rows)
-//         if (err) {
-//             let locals = {
-//                 title: `Error al buscar el registro con el id: ${acuerdo_id}`,
-//                 description: "Error de Sintaxis SQL",
-//                 error: err
-//             }
-
-//             res.render('error', locals)
-//         } else {
-//             let locals = {
-//                 title: 'Acuerdos Municipales',
-//                 data: rows,
-//                 op: 'search'
-//             }
-//             res.render('edit', locals)
-//         }
-//     })
-// }
+    ACModel.getOne(acuerdo_id, (snapshot) => {
+        let rows = snapshot.val(),
+            locals = {
+                title: 'Acuerdos Municipales',
+                id: acuerdo_id,
+                data: rows,
+                op: 'search'
+            }
+        console.log(rows)
+        res.render('edit', locals)
+    })
+}
 
 ACController.delete = (req, res, next) => {
     //     let acuerdo_id = req.params.acuerdo_id

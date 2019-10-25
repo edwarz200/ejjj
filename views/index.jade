@@ -19,16 +19,16 @@ block content
 					-each ac in data
 						-console.log()
 						tr.row
-							th.col-1.text-truncate(scope="row") #{ac.acuerdo_id}
+							th.col-1.text-truncate(scope="row") #{id}
 							td.col-2 #{ac.nro_acuerdo}
 							td.col-2 #{ac.fecha}
 							td.col-5
 								article.w-100.h-100.textarea(disabled).bg-transparent
 									p #{ac.detalle}
 							td.col-2
-								form(method="GET" action="/editar/#{ac.acuerdo_id}")
+								form(method="GET" action="/editar/#{id}")
 									input.button.btn.btn-info.btn-block(type="submit", value="Editar",  title="Editar el acuerdo")
-								form(method="POST" action="/eliminar/#{ac.acuerdo_id}")
+								form(method="POST" action="/eliminar/#{id}")
 									//- div.D(style="display: #{disables}")
 									a.btn.btn-danger.btn-block(href="/delete/") Eliminar
 									//- input.disable.button.btn.btn-danger.btn-block(disabled, type="button", onclick="eliminar(this)", value="Eliminar", title="Eliminar el acuerdo")
