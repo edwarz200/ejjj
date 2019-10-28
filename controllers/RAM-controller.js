@@ -5,14 +5,12 @@ var ACModel = require('../models/RAM-model'),
 
 ACController.push = (req, res, next) => {
     let id = req.body.acuerdo_id,
-    AC = {
+        AC = {
             nro_acuerdo: req.body.nro_acuerdo,
             fecha: req.body.fecha,
             detalle: req.body.detalle
         }
-    console.log(AC)
-
-    ACModel.push(id,AC, (err) => {
+    ACModel.push(id, AC, (err) => {
         if (err) {
             let locals = {
                 title: `Error al salvar el registro con el id: ${AC.acuerdo_id}`,
@@ -30,11 +28,17 @@ ACController.push = (req, res, next) => {
 
 ACController.getAll = (req, res, next) => {
     let H_D = req.params.value,
-        id_AC = "no paso", 
+        childKey = "no paso",
         c
-    ACModel.getid((snapshot,prevChildKey)=>{id_AC = prevChildKey})
     ACModel.getAll((snapshot) => {
-        let rows = snapshot.val()
+        var childKey = {},
+            rows, isss = 0
+        snapshot.forEach(function(childSnapshot) {
+            childKey[isss] = childSnapshot.key
+            rows = snapshot.val()
+            console.log(childKey[isss])
+            isss++
+        });
         if (H_D == ":Habilitar") {
             c = 'false'
         } else if (H_D == ":Varios") {
@@ -46,7 +50,7 @@ ACController.getAll = (req, res, next) => {
             title: 'Acuerdos Municipales',
             disables: c,
             data: rows,
-            id: id_AC
+            childKey: childKey
         }
         res.render('index', locals)
     })
@@ -61,9 +65,9 @@ ACController.close_reset = (req, res, next) => {
     } else if (closeORreset == ":Restart") {
         id = "Restart"
     }
-    ACModel.close_reset(id,(err, stdout, stderr) => {
-    res.redirect('/')
-        return (err) ? console.log(`Archivo no encontrado ${err.stack}`) : console.log(`Archivo encontrado: stdout ${stdout}, stderr ${stderr} `) 
+    ACModel.close_reset(id, (err, stdout, stderr) => {
+        res.redirect('/')
+        return (err) ? console.log(`Archivo no encontrado ${err.stack}`) : console.log(`Archivo encontrado: stdout ${stdout}, stderr ${stderr} `)
     })
     console.log(closeORreset)
 }
@@ -86,23 +90,22 @@ ACController.getOne = (req, res, next) => {
 }
 
 ACController.delete = (req, res, next) => {
-    //     let acuerdo_id = req.params.acuerdo_id
-    //     console.log(acuerdo_id)
+    let acuerdo_id = req.params.acuerdo_id
+    console.log(acuerdo_id)
 
-    //     ACModel.delete(acuerdo_id, (err, rows) => {
-    //         console.log(err, '---', rows)
-    //         if (err) {
-    //             let locals = {
-    //                 title: `Error al eliminar el registro con el id: ${acuerdo_id}`,
-    //                 description: "Error de Sintaxis SQL",
-    //                 error: err
-    //             }
+    ACModel.delete(acuerdo_id, function(err) {
+        if (err) {
+            let locals = {
+                title: `Error al eliminar el registro con el id: ${acuerdo_id}`,
+                description: "Error de Sintaxis",
+                error: err
+            }
 
-    //             res.render('error', locals)
-    //         } else {
-    //             res.redirect('/S_E:Habilitar')
-    //         }
-    //     })
+            res.render('error', locals)
+        } else {
+            res.redirect('/S_E:Habilitar')
+        }
+    })
 }
 
 ACController.addForm = (req, res, next) => {
@@ -161,11 +164,15 @@ ACController.addForm = (req, res, next) => {
 }
 
 ACController.searchForm = (req, res, next) => {
-    let locals = {
-        title: 'Buscar Acuerdo Municipal',
-        op: 'search'
-    }
-    res.render('search', locals)
+    let sr = req.params.value_search,
+        locals = {
+            title: 'Buscar Acuerdo Municipal',
+            op: 'search'
+        }
+    console.log(sr)
+    console.log(req.params)
+
+    // res.render('search', locals)
 }
 
 ACController.error404 = (req, res, next) => {

@@ -1,13 +1,16 @@
 window.onload = () => {
     var lista = document.getElementById("S_E"),
-        lista2 = document.getElementById("C_R")
+        lista2 = document.getElementById("C_R"),
+        l_search = document.getElementById("search")
     lista.onchange = () => {
-        alert(lista.value)
         redirect("S_E", lista.value)
 
     }
     lista2.onchange = () => {
         redirect("C_R", lista2.value)
+    }
+    l_search.onchange = () => {
+        redirect("SR", l_search.value)
     }
 }
 

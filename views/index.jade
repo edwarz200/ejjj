@@ -15,25 +15,23 @@ block content
 							div.input-group
 								include add_cant
 					
-					-var cont=1
+					-var cont=0
 					-each ac in data
 						-console.log()
 						tr.row
-							th.col-1.text-truncate(scope="row") #{id}
+							th.col-1.text-truncate.text-10(scope="row") #{childKey[cont]}
 							td.col-2 #{ac.nro_acuerdo}
 							td.col-2 #{ac.fecha}
 							td.col-5
 								article.w-100.h-100.textarea(disabled).bg-transparent
 									p #{ac.detalle}
 							td.col-2
-								form(method="GET" action="/editar/#{id}")
+								form(method="GET" action="/editar/#{childKey[cont]}")
 									input.button.btn.btn-info.btn-block(type="submit", value="Editar",  title="Editar el acuerdo")
-								form(method="POST" action="/eliminar/#{id}")
+								form(method="POST" action="/eliminar/#{childKey[cont]}")
 									//- div.D(style="display: #{disables}")
-									a.btn.btn-danger.btn-block(href="/delete/") Eliminar
-									//- input.disable.button.btn.btn-danger.btn-block(disabled, type="button", onclick="eliminar(this)", value="Eliminar", title="Eliminar el acuerdo")
+									input.disable.button.btn.btn-danger.btn-block(disabled, type="button", onclick="eliminar(this)", value="Eliminar", title="Eliminar el acuerdo")
 									input(type="hidden", name="_method", value="DELETE")
-						-console.log(cont)
 						-cont++
 						
 				script.
