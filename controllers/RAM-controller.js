@@ -66,10 +66,9 @@ ACController.close_reset = (req, res, next) => {
         id = "Restart"
     }
     ACModel.close_reset(id, (err, stdout, stderr) => {
-        res.redirect('/')
-        return (err) ? console.log(`Archivo no encontrado ${err.stack}`) : console.log(`Archivo encontrado: stdout ${stdout}, stderr ${stderr} `)
+        // return (err) ? console.log(`Archivo no encontrado ${err.stack}`) : console.log(`Archivo encontrado: stdout ${stdout}, stderr ${stderr} `)
     })
-    console.log(closeORreset)
+    res.redirect('/')
 }
 
 ACController.getOne = (req, res, next) => {
@@ -165,14 +164,21 @@ ACController.addForm = (req, res, next) => {
 
 ACController.searchForm = (req, res, next) => {
     let sr = req.params.value_search,
-        locals = {
+        search = "",
+        po = ""
+    if(sr != ":"){
+        var arrayDeCadenas = sr.split("=")
+        search = arrayDeCadenas[arrayDeCadenas.length-1]
+        po = arrayDeCadenas[0]
+    }
+    let locals = {
             title: 'Buscar Acuerdo Municipal',
-            op: 'search'
+            op: 'search',
+            search: search,
+            input: po
         }
-    console.log(sr)
-    console.log(req.params)
+    res.render('search', locals)
 
-    // res.render('search', locals)
 }
 
 ACController.error404 = (req, res, next) => {

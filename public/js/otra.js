@@ -1,16 +1,11 @@
 window.onload = () => {
     var lista = document.getElementById("S_E"),
-        lista2 = document.getElementById("C_R"),
-        l_search = document.getElementById("search")
+        lista2 = document.getElementById("C_R")
     lista.onchange = () => {
         redirect("S_E", lista.value)
-
     }
     lista2.onchange = () => {
         redirect("C_R", lista2.value)
-    }
-    l_search.onchange = () => {
-        redirect("SR", l_search.value)
     }
 }
 
@@ -21,24 +16,38 @@ function redirect(l, value) {
         window.location = "/" + l + ":" + value;
 }
 
-function on() {
-    var listaAdd = document.getElementById("inputGroupSelect01")
-    location.href = "/agregar:nums=" + listaAdd.value;
+function on(h) {
+    var listaAdd,sORa,inputSearch
+    if (h == "/agregar:nums="){
+        listaAdd = document.getElementById("inputGroupSelect01")
+        sORa = ""
+    }
+    else if(h == "/search/SR:"){
+        listaAdd = document.getElementById("List_search")
+        inputSearch = document.getElementById("inputSearch")
+        sORa = "="+inputSearch.value
+    }
+    location.href = h + listaAdd.value + sORa;
 }
 
-function onsub(cant) {
+// function onKeyDownHandler(event) {
 
-    var i = 0
-    while (i <= cant) {}
-}
+    $("#inputSearch").keypress(function(event) {
+        if (event.which == 13) {
+          on('/search/SR:')
+        }
+    });
 
-function hilos(cant) {
-    $('.submit' + i).click()
-    i++
-}
+//     if(codigo >= 65 && codigo <= 90){
+//       console.log(String.fromCharCode(codigo));
+//     }
 
-function myfun(h_d, h, e) {
+     
+// }
+
+function myfun(h_d, h, e, s) {
     var select = 0,
+        selectS = 0,
         inputGroupSelect01 = document.getElementById("inputGroupSelect01")
     if (h_d == "false") {
         $(".disable").removeAttr('disabled')
@@ -66,4 +75,15 @@ function myfun(h_d, h, e) {
     }
     if (inputGroupSelect01 != null)
         inputGroupSelect01.options.item(e).setAttribute('selected', false)
+    
+    if(s==":Palabra"){
+        selectS=1
+    }
+    else if(s==":Numero de acuerdo"){
+        selectS=2
+    }
+    else if(s==":Fecha del acuerdo"){
+        selectS=3
+    }
+    document.querySelector("#List_search").options.item(selectS).setAttribute('selected', false)
 }

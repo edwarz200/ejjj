@@ -6,9 +6,7 @@ var conn = require('./RAM-connection'),
 
 ACModel.close_reset = (id, cb) => Cexec.conexec(id, cb)
 
-ACModel.getAll = (cb) => {
-    conn.ref('RAM/').once('value', cb)
-}
+ACModel.getAll = (cb) => conn.ref('RAM/').orderByChild('fecha').once('value', cb)
 
 ACModel.getOne = (id, cb) => conn.ref('RAM/' + id).once('value', cb)
 

@@ -8,7 +8,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light.mb-3
         a.nav-link.text-light(href='/')
           | Inicio 
       li.nav-item
-        a.nav-link.text-light(href='/search') Buscar
+        a.nav-link.text-light(href='/search/SR:') Buscar
       li.nav-item
         a.nav-link.text-light.Ag(href='/agregar:nums=1' hidden) Agregar
       li.nav-item
@@ -20,6 +20,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-light.mb-3
       input#disables(type="hidden",value="#{disables}")
       input#op(type="hidden",value="#{op}")
       input#nums(type="hidden", value="#{nums}")
+      input#searchlista(type="hidden",value="#{input}")
     select.dropdown.btn.btn-secondary.dropdown-toggle.float-left(title="Servidor local", name="C_R", id="C_R",)
           option.dropdown-item.text-light(value="") Opciones del servidor
           option.dropdown-item.text-light(value="Close") Cerrar servidor
