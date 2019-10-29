@@ -1,8 +1,9 @@
 'use strict'
 
 var ACModel = require('../models/RAM-model'),
+    // algoliasearch = require('algoliasearch'),
+    // algolia = require('../models/RAM-Algolia'),
     ACController = () => {}
-
 ACController.push = (req, res, next) => {
     let id = req.body.acuerdo_id,
         AC = {
@@ -37,6 +38,7 @@ ACController.getAll = (req, res, next) => {
             childKey[isss] = childSnapshot.key
             rows = snapshot.val()
             console.log(childKey[isss])
+            rows.objectID = childKey
             isss++
         });
         if (H_D == ":Habilitar") {
