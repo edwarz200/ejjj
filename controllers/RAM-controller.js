@@ -7,11 +7,12 @@ var ACModel = require('../models/RAM-model'),
 ACController.push = (req, res, next) => {
     let id = req.body.acuerdo_id,
         AC = {
+            acuerdo_id: req.body.acuerdo_id,
             nro_acuerdo: req.body.nro_acuerdo,
             fecha: req.body.fecha,
             detalle: req.body.detalle
         }
-    ACModel.push(id, AC, (err) => {
+    ACModel.push(id,AC,(err,l) => {
         if (err) {
             let locals = {
                 title: `Error al salvar el registro con el id: ${AC.acuerdo_id}`,
@@ -21,7 +22,8 @@ ACController.push = (req, res, next) => {
 
             res.render('error', locals)
         } else {
-            res.redirect('/')
+            getsave(save:'Datos guardados')
+            
         }
     })
 }
@@ -30,7 +32,7 @@ ACController.push = (req, res, next) => {
 ACController.getAll = (req, res, next) => {
     let H_D = req.params.value,
         childKey = "no paso",
-        c
+        c,save
     ACModel.getAll((snapshot) => {
         var childKey = {},
             rows, isss = 0
@@ -48,11 +50,15 @@ ACController.getAll = (req, res, next) => {
         } else {
             c = 'true_defect'
         }
+        getsave(savee){
+            save = savee
+        }
         let locals = {
             title: 'Acuerdos Municipales',
             disables: c,
             data: rows,
-            childKey: childKey
+            childKey: childKey,
+            data_save: save
         }
         res.render('index', locals)
     })
